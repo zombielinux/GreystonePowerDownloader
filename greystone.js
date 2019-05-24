@@ -21,13 +21,13 @@ var newStart = process.argv
 if (!newStart[2]) {
 	var startDate = new Date()
 //	console.log(startDate.getMonth()+"/"+startDate.getDate()+"/"+parseInt(startDate.getYear()+1900))
-	startDate = startDate.getMonth()+"/"+startDate.getDate()+"/"+parseInt(startDate.getYear()+1900)
+	startDate = parseInt(startDate.getMonth()+1)+"/"+startDate.getDate()+"/"+parseInt(startDate.getYear()+1900)
 	}
 else {
 	newStart = newStart[2].split("-")
 	startDate = newStart[1]+"/"+newStart[2]+"/"+newStart[0]
-//	console.log(startDate)
 }
+//	console.log(startDate)
 
 
 
@@ -35,7 +35,7 @@ for (h=0; h<7; h++){
 	newStartDate = new Date(startDate.split("/")[2], startDate.split("/")[0], startDate.split("/")[1])
 	newStartDate.setDate(newStartDate.getDate()-h)
 	console.log(newStartDate)
-
+	console.log(newStartDate.getMonth()+"/"+newStartDate.getDate()+"/"+parseInt(newStartDate.getYear()+1900))
 	got('https://secure.greystonepower.com/oscp/customizations/MDM/ExportCSV.aspx?IsNew=Y&id=Interval&mbrsep=' + secrets.memberNumber + '&stdate=' + newStartDate.getMonth()+"/"+newStartDate.getDate()+"/"+parseInt(newStartDate.getYear()+1900) +'&interval=15&sliderval=0&meter=' + secrets.meterNumber + '&demandcode=00').then(response => { 
 		console.log(response.body)
 	//	console.log(typeof response.body.split(/\r?\n/))
